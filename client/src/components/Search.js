@@ -26,7 +26,8 @@ const Search = () => {
         fetchData();
     }, [search]);
 
-    const handleSearch = async (id) => {
+    const handleSearch = async (e,id) => {
+        e.preventDefault();
         const res = (await axios.get(`/api/search/${id}`))
             .data;
         delete res.data.pk;
@@ -36,7 +37,7 @@ const Search = () => {
     return (
         <div className="container mt-4">
             <div className="col-lg-8 mx-auto">
-                <form className="d-flex" role="search">
+                <form className="d-flex" role="search" onSubmit={(e)=>handleSearch(e,search)}>
                     <input
                         className="form-control me-2"
                         type="search"
@@ -45,9 +46,9 @@ const Search = () => {
                         value={search}
                         onChange={handleChange}
                     />
-                    {/* <button className="btn btn-outline-success" type="submit">
+                    <button className="btn btn-outline-success" type="submit">
                         Search
-                    </button> */}
+                    </button>
                 </form>
             </div>
             {/* all search results will be displayed here */}
@@ -69,8 +70,8 @@ const Search = () => {
                                     <td>
                                         <button
                                             className="btn btn-sm btn-primary"
-                                            onClick={() =>
-                                                handleSearch(result.id)
+                                            onClick={(e) =>
+                                                handleSearch(e,result.id)
                                             }
                                         >
                                             View
