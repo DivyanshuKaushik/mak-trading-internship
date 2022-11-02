@@ -60,7 +60,7 @@ const Search = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {results && results.length ? (
+                        {results ? (
                             results.map((result) => (
                                 <tr key={result.id}>
                                     <td className="">
