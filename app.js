@@ -11,13 +11,7 @@ app.use(express.json())
 
 app.use(cors())
 
-if(process.env.NODE_ENV=="production"){
-    app.use(express.static("client/build"))
-    const path = require('path')
-    app.get('*',(req,res)=>{
-        res.sendFile(path.resolve(__dirname, 'client','build','index.html'));
-    })
-}
+
 
 // app.get('/', async(req, res) => {
 //     try {
@@ -67,7 +61,19 @@ app.post('/api/upload', async(req, res) => {
         return res.status(500).json({ message: "Internal Server Error", error });
     }
 });
+if(process.env.NODE_ENV=="production"){
 
+    app.use(express.static("client/build"))
+
+    const path = require('path')
+
+    app.get('*',(req,res)=>{
+
+        res.sendFile(path.resolve(__dirname, 'client','build','index.html'));
+
+    })
+
+}
 app.listen(process.env.PORT || 4000, () => {
     console.log('Listening on port 4000');
     }
